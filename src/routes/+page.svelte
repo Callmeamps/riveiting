@@ -1,23 +1,26 @@
 <script>
-import onMount from "svelte";
-import rive from "@rive-app/canvas";
-
-
-onMount(() => {
-	const rivCanvas = document.getElementById("rive");
-	let mainCard = document.getElementByClass("card");
-	let r = new rive({
-		src: "./reach.riv",
-		autoplay: true,
-		artboard: "reach",
-		stateMachine: "PullDown",
-		canvas: rivCanvas,
-		onLoad: () => {
-			r.resizeDrawingSurfaceToCanvas();
-		},
-	});
-});
+	// The ordering of these imports is critical to your app working properly
+	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
+	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
+	import '@skeletonlabs/skeleton/styles/skeleton.css';
+	// Most of your app wide CSS should be put in this file
+	import '../app.postcss';
+	import { AppShell } from '@skeletonlabs/skeleton';
+	import Card from "$lib/Card.svelte";
+	import SceneToggle from '../lib/canvases/SceneToggle.svelte';
 </script>
-<div class="card">
-	<canvas id="rive"></canvas>
-</div>
+
+<svelte:head>
+	<title>Reaching</title>
+</svelte:head>
+<AppShell>
+	<svelte:fragment slot="header"><SceneToggle /></svelte:fragment>
+	<!-- (sidebarLeft) -->
+	<!-- (sidebarRight) -->
+	<!-- (pageHeader) -->
+	<!-- Router Slot -->
+	<Card />
+	<!-- ---- / ---- -->
+	<svelte:fragment slot="pageFooter">Page Footer</svelte:fragment>
+	<!-- (footer) -->
+</AppShell>
