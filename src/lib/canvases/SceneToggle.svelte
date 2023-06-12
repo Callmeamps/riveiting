@@ -1,9 +1,12 @@
 <script>
-    import { Rive } from "@rive-app/canvas";
+    import { Rive, Layout, Fit, Alignment } from "@rive-app/canvas";
     import { onMount } from "svelte";
     import { AppBar } from "@skeletonlabs/skeleton";
 
-    onMount(() => {
+    
+    export let cleanRive = false;
+
+    onMount(() => {    
         const r = new Rive({
             src: "./scenicButton.riv",
             // Or the path to a public Rive asset
@@ -16,15 +19,13 @@
             },
             shouldDisableRiveListeners: false,
         });
-        riveInstance.cleanup();
+        if (cleanRive) {
+            riveInstance.cleanup();
+        }
     });
 
 
 </script>
-
-<AppBar>
-    <svelte:fragment slot="lead"><img src="./favicon.png" alt=""></svelte:fragment>
-    <svelte:fragment slot="trail"><canvas id="riv" width="150" height="75">
-        Subscribe
-    </canvas></svelte:fragment>
-</AppBar>
+<div class="w-screen flex rounded-md border-warning-100 border-t-0 justify-center">
+    <canvas id="riv" width="150" height="75">
+</div>
