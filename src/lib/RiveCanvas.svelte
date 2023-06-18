@@ -1,6 +1,6 @@
 <script>
     import { Rive, Layout, Fit, Alignment } from "@rive-app/canvas";
-    import { onMount } from "svelte";
+    import { beforeUpdate, onMount } from "svelte";
 
     export let src;
     export let canvas;
@@ -14,13 +14,18 @@
             });
     export let riveCanvas;
     export let allTriggers;
-    if (allTriggers) {
-        let trigger = allTriggers[0];
-    }
+    export let trigger;
 
     if (!canvas) {
         canvas = "canvas";
     };
+
+    beforeUpdate(() => {
+        if (riveCanvas) {
+            riveCanvas.cleanup();
+        }
+    })
+
     onMount(() => {
         riveCanvas = new Rive({
             src: src,
@@ -37,13 +42,13 @@
                  // Get the inputs via the name of the state machine
                  allTriggers = riveCanvas.stateMachineInputs(stateMachine);
                 // Find the input you want to set a value for, or trigger
-                // trigger = inputs.find(i => i.name === 'StateMachineInput2');
+                trigger = allTriggers.find("StateMachineInput2").fire();
 
             },    
         });
 
         if (cleanRive) {
-            riveInstance.cleanup();
+            riveCanvas.cleanup();
         }
     });
 </script>
