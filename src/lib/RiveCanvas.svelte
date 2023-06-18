@@ -2,35 +2,47 @@
     import { Rive, Layout, Fit, Alignment } from "@rive-app/canvas";
     import { onMount } from "svelte";
 
-    
     export let src;
+    export let canvas;
+    export let stateMachine = "State Machine 1";
     export let autoplay = true;
-    export let stateMachine;
     export let cleanRive = false;
+    export let offscreenRenderer = false;
+    export let defaultLayout = new Layout({
+                fit: Fit.Contain,
+                alignment: Alignment.Center,
+            });
+    export let riveCanvas;
+    let inputs;
 
-    let machine = "State Machine 1";  
-    if (stateMachine) {
-            machine = stateMachine;
-        }
+    if (!canvas) {
+        canvas = "canvas";
+    };
     onMount(() => {
-        const riveCanvas = new Rive({
+        riveCanvas = new Rive({
             src: src,
             // Or the path to a public Rive asset
             // src: '/public/example.riv',
-            canvas: document.getElementById("riv"),
+            canvas: document.getElementById(canvas),
             autoplay: autoplay,
-            stateMachines: machine,
-            layout: new Layout({
-                fit: Fit.Contain,
-                alignment: Alignment.Center,
-            }),
-            onLoad: () => {riveCanvas.resizeDrawingSurfaceToCanvas()},
+            stateMachines: stateMachine,
+            layout: defaultLayout,
             shouldDisableRiveListeners: false,
+            useOffscreenRenderer: offscreenRenderer,
+            onLoad: () => {
+                riveCanvas.resizeDrawingSurfaceToCanvas();
+                 // Get the inputs via the name of the state machine
+                inputs = riveInstance.stateMachineInputs(stateMachine);
+                // Find the input you want to set a value for, or trigger
+                const bumpTrigger = inputs.find(i => i.name === 'bump');
+            },    
+            
         });
+
         if (cleanRive) {
             riveInstance.cleanup();
         }
     });
 </script>
 
-<canvas id="riv"></canvas>
+<canvas id={canvas}></canvas>

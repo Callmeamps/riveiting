@@ -7,29 +7,26 @@
 	import '../app.postcss';
 	import { page } from "$app/stores";
 	import { AppShell } from '@skeletonlabs/skeleton';
-	import SceneToggle from '../lib/canvases/SceneToggle.svelte';
 
 
 	const toggleCleanRive = (clean) => {
 		clean = false;
 		if (clean) {
-			clean = false;
-		}
-		else {
-			clean = true;
-		}
-		return clean
-	};
+			clean != clean;
+			return clean
+		};
+	}
 	let cleanRive = false;
 
 	let currentPath = $page.url.pathname;
+
 
 </script>
 
 <AppShell>
 	<svelte:fragment slot="header">
 		<nav class="flex justify-center w-screen gap-3">
-			<a href="/" class="btn btn-icon rounded-md variant-glass-surface">
+			<a href="/" class="btn btn-icon rounded-md variant-glass-surface w-auto">
 				<img src="./favicon.png" alt="skull" class="w-5">
 				<p class="text-lg">Home</p> 
 			</a>
@@ -52,6 +49,6 @@
 	</div>
 
 	<!-- ---- / ---- -->
-	<svelte:fragment slot="pageFooter">Current URL: {$page.url.pathname}</svelte:fragment>
+	<svelte:fragment slot="pageFooter">Current URL: {currentPath}</svelte:fragment>
 	<!-- (footer) -->
 </AppShell>

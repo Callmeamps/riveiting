@@ -4,7 +4,8 @@
 </script>
 
 <RiveCanvas 
-    src="./simple-eye.riv"
-    stateMachine="state_machine" 
-    offscreenRenderer={offscreenRenderer} 
+src="./brownbubble.riv"
+canvas="bubble"
+stateMachine="state_machine" 
+offscreenRenderer={offscreenRenderer} 
 />

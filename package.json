@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@rive-app/canvas": "^1.2.0"
+		"@rive-app/canvas": "^1.2.0",
+		"@rive-app/webgl": "^1.2.0"
 	}
 }
