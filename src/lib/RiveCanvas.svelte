@@ -13,7 +13,10 @@
                 alignment: Alignment.Center,
             });
     export let riveCanvas;
-    let inputs;
+    export let allTriggers;
+    if (allTriggers) {
+        let trigger = allTriggers[0];
+    }
 
     if (!canvas) {
         canvas = "canvas";
@@ -32,11 +35,11 @@
             onLoad: () => {
                 riveCanvas.resizeDrawingSurfaceToCanvas();
                  // Get the inputs via the name of the state machine
-                inputs = riveInstance.stateMachineInputs(stateMachine);
+                 allTriggers = riveCanvas.stateMachineInputs(stateMachine);
                 // Find the input you want to set a value for, or trigger
-                const bumpTrigger = inputs.find(i => i.name === 'bump');
+                // trigger = inputs.find(i => i.name === 'StateMachineInput2');
+
             },    
-            
         });
 
         if (cleanRive) {
